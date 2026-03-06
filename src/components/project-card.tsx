@@ -25,6 +25,30 @@ function ProjectImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
+function getYouTubeEmbedUrl(url: string): string | null {
+  try {
+    const parsed = new URL(url);
+
+    if (parsed.hostname.includes("youtube.com") && parsed.pathname === "/watch") {
+      const v = parsed.searchParams.get("v");
+      if (v) {
+        return `https://www.youtube.com/embed/${v}?autoplay=1&mute=1&playsinline=1`;
+      }
+    }
+
+    if (parsed.hostname.includes("youtu.be")) {
+      const id = parsed.pathname.slice(1);
+      if (id) {
+        return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&playsinline=1`;
+      }
+    }
+  } catch {
+    // ignore parse errors and fall back to regular video tag
+  }
+
+  return null;
+}
+
 interface Props {
   title: string;
   href?: string;
@@ -54,6 +78,8 @@ export function ProjectCard({
   links,
   className,
 }: Props) {
+  const youTubeEmbedUrl = video ? getYouTubeEmbedUrl(video) : null;
+
   return (
     <div
       className={cn(
@@ -68,15 +94,23 @@ export function ProjectCard({
           rel="noopener noreferrer"
           className="block"
         >
-          {video ? (
-            <video
-              src={video}
-              autoPlay
-              loop
-              muted
-              playsInline
+          {youTubeEmbedUrl ? (
+            <iframe
+              src={youTubeEmbedUrl}
+              title={title}
               className="w-full h-48 object-cover"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
             />
+          ) : video ? (
+            <video
+  src={video}       // رابط الفيديو عندك
+  autoPlay          // يبدأ تلقائي
+  loop              // يعيد التشغيل باستمرار
+  muted             // لازم يكون صامت عشان المتصفحات تسمح بالـ autoplay
+  playsInline       // يمنع fullscreen في الجوال
+  className="w-full h-48 object-cover pointer-events-none"
+/>
           ) : image ? (
             <ProjectImage src={image} alt={title} />
           ) : (
