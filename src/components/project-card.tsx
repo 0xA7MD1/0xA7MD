@@ -32,14 +32,14 @@ function getYouTubeEmbedUrl(url: string): string | null {
     if (parsed.hostname.includes("youtube.com") && parsed.pathname === "/watch") {
       const v = parsed.searchParams.get("v");
       if (v) {
-        return `https://www.youtube.com/embed/${v}?autoplay=1&mute=1&playsinline=1`;
+        return `https://www.youtube.com/embed/${v}?autoplay=1&mute=1&playsinline=1&controls=0&loop=1&playlist=${v}&rel=0&disablekb=1&modestbranding=1&iv_load_policy=3`;
       }
     }
 
     if (parsed.hostname.includes("youtu.be")) {
       const id = parsed.pathname.slice(1);
       if (id) {
-        return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&playsinline=1`;
+        return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&playsinline=1&controls=0&loop=1&playlist=${id}&rel=0&disablekb=1&modestbranding=1&iv_load_policy=3`;
       }
     }
   } catch {
@@ -98,19 +98,19 @@ export function ProjectCard({
             <iframe
               src={youTubeEmbedUrl}
               title={title}
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-cover pointer-events-none"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
           ) : video ? (
             <video
-  src={video}       // رابط الفيديو عندك
-  autoPlay          // يبدأ تلقائي
-  loop              // يعيد التشغيل باستمرار
-  muted             // لازم يكون صامت عشان المتصفحات تسمح بالـ autoplay
-  playsInline       // يمنع fullscreen في الجوال
-  className="w-full h-48 object-cover pointer-events-none"
-/>
+              src={video}      
+              autoPlay          
+              loop              
+              muted             
+              playsInline       
+              className="w-full h-48 object-cover pointer-events-none"
+            />
           ) : image ? (
             <ProjectImage src={image} alt={title} />
           ) : (
