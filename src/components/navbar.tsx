@@ -1,97 +1,127 @@
-import { Dock, DockIcon } from "@/components/magicui/dock";
+"use client";
+
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { Menu, X } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
-import { Separator } from "@/components/ui/separator";
-import {
-  Tooltip,
-  TooltipArrow,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { DATA } from "@/data/resume";
+
+const links = [
+  { id: "projects", label: "المشاريع" },
+  { id: "expertise", label: "ما أبنيه" },
+  { id: "about", label: "عنّي" },
+  { id: "contact", label: "التواصل" },
+];
+function subscribeScroll(onChange: () => void) {
+  window.addEventListener("scroll", onChange, { passive: true });
+  return () => window.removeEventListener("scroll", onChange);
+}
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const scrolled = useSyncExternalStore(
+    subscribeScroll,
+    () => window.scrollY > 24,
+    () => false,
+  );
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
+  const menuButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries)
+          if (entry.isIntersecting) setActive(entry.target.id);
+      },
+      { rootMargin: "-15% 0px -60% 0px", threshold: 0 },
+    );
+    for (const link of links) {
+      const section = document.getElementById(link.id);
+      if (section) observer.observe(section);
+    }
+    return () => observer.disconnect();
+  }, []);
+  function closeMenu() {
+    setOpen(false);
+  }
+  if (pathname !== "/") return null;
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-4 z-30">
-      <Dock className="z-50 pointer-events-auto relative h-14 p-2 w-fit mx-auto flex gap-2 border bg-card/90 backdrop-blur-3xl shadow-[0_0_10px_3px] shadow-primary/5">
-        {DATA.navbar.map((item) => {
-          const isExternal = item.href.startsWith("http");
-          return (
-            <Tooltip key={item.href}>
-              <TooltipTrigger asChild>
-                <a
-                  href={item.href}
-                  target={isExternal ? "_blank" : undefined}
-                  rel={isExternal ? "noopener noreferrer" : undefined}
-                >
-                  <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
-                    <item.icon className="size-full rounded-sm overflow-hidden object-contain" />
-                  </DockIcon>
-                </a>
-              </TooltipTrigger>
-              <TooltipContent
-                side="top"
-                sideOffset={8}
-                className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
-              >
-                <p>{item.label}</p>
-                <TooltipArrow className="fill-primary" />
-              </TooltipContent>
-            </Tooltip>
-          );
-        })}
-        <Separator
-          orientation="vertical"
-          className="h-2/3 m-auto w-px bg-border"
-        />
-        {Object.entries(DATA.contact.social)
-          .filter(([_, social]) => social.navbar)
-          .map(([name, social], index) => {
-            const isExternal = social.url.startsWith("http");
-            const IconComponent = social.icon;
-            return (
-              <Tooltip key={`social-${name}-${index}`}>
-                <TooltipTrigger asChild>
-                  <a
-                    href={social.url}
-                    target={isExternal ? "_blank" : undefined}
-                    rel={isExternal ? "noopener noreferrer" : undefined}
-                  >
-                    <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
-                      <IconComponent className="size-full rounded-sm overflow-hidden object-contain" />
-                    </DockIcon>
-                  </a>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="top"
-                  sideOffset={8}
-                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
-                >
-                  <p>{name}</p>
-                  <TooltipArrow className="fill-primary" />
-                </TooltipContent>
-              </Tooltip>
-            );
-          })}
-        <Separator
-          orientation="vertical"
-          className="h-2/3 m-auto w-px bg-border"
-        />
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
-              <ModeToggle className="size-full cursor-pointer" />
-            </DockIcon>
-          </TooltipTrigger>
-          <TooltipContent
-            side="top"
-            sideOffset={8}
-            className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+    <header
+      className="site-header"
+      data-scrolled={scrolled}
+      data-open={open}
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          closeMenu();
+          menuButton.current?.focus();
+        }
+      }}
+    >
+      <div className="header-inner">
+        <a
+          className="header-brand"
+          href="#home"
+          aria-label="أحمد — الرئيسية"
+          onClick={closeMenu}
+        >
+          <Image
+            className="brand-symbol"
+            src="/brand/ahmed-icon.svg"
+            alt="رمز أحمد: أ"
+            width={98}
+            height={339}
+            priority
+          />
+        </a>
+        <nav className="desktop-nav" aria-label="التنقل الرئيسي">
+          {links.map((link) => (
+            <a
+              href={`#${link.id}`}
+              key={link.id}
+              aria-current={active === link.id ? "location" : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+        <div className="header-actions">
+          <ModeToggle />
+          <a
+            href="#contact"
+            className="button button-cta header-contact"
+            onClick={closeMenu}
           >
-            <p>Theme</p>
-            <TooltipArrow className="fill-primary" />
-          </TooltipContent>
-        </Tooltip>
-      </Dock>
-    </div>
+            لنتواصل
+          </a>
+          <button
+            ref={menuButton}
+            className="icon-button menu-toggle"
+            aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}
+            aria-controls="mobile-nav"
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={19} /> : <Menu size={19} />}
+          </button>
+        </div>
+      </div>
+      <nav
+        id="mobile-nav"
+        className="mobile-nav"
+        aria-label="التنقل على الجوال"
+        hidden={!open}
+      >
+        {links.map((link) => (
+          <a
+            href={`#${link.id}`}
+            key={link.id}
+            aria-current={active === link.id ? "location" : undefined}
+            onClick={closeMenu}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    </header>
   );
 }

@@ -1,172 +1,127 @@
- 
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import { DATA } from "@/data/resume";
 
-export const runtime = "edge";
-
-export const alt = DATA.name;
-export const size = {
-    width: 1200,
-    height: 630,
-};
+export const runtime = "nodejs";
+export const alt = "Ahmed Al-Shami — Software Engineer";
+export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const getFontData = async () => {
-    try {
-        const [cabinetGrotesk, clashDisplay] = await Promise.all([
-            fetch(
-                new URL("../../public/fonts/CabinetGrotesk-Medium.ttf", import.meta.url)
-            ).then((res) => res.arrayBuffer()),
-            fetch(
-                new URL("../../public/fonts/ClashDisplay-Semibold.ttf", import.meta.url)
-            ).then((res) => res.arrayBuffer()),
-        ]);
-        return { cabinetGrotesk, clashDisplay };
-    } catch (error) {
-        console.error("Failed to load fonts:", error);
-        return null;
-    }
-};
-
-const styles = {
-    outerWrapper: {
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#ffffff",
-        position: "relative",
-    },
-    middleWrapper: {
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#ffffff",
-        position: "relative",
-        padding: "40px",
-    },
-    wrapper: {
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#fafafa",
-        position: "relative",
-        padding: "40px",
-        border: "1px solid #e5e5e5",
-        borderRadius: "12px",
-    },
-    imageSection: {
-        position: "absolute",
-        top: "40px",
-        left: "40px",
-        display: "flex",
-        alignItems: "center",
-        zIndex: "2",
-    },
-    mainContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        justifyContent: "flex-end",
-        height: "100%",
-        width: "100%",
-        position: "relative",
-        zIndex: "1",
-    },
-    image: {
-        width: "140px",
-        height: "140px",
-        borderRadius: "24px",
-        border: "4px solid #e5e5e5",
-        objectFit: "cover",
-    },
-    title: {
-        fontFamily: "Clash Display",
-        fontSize: "48px",
-        fontWeight: "600",
-        lineHeight: "1.1",
-        textAlign: "left",
-        color: "#000000",
-        marginBottom: "16px",
-        letterSpacing: "-0.02em",
-        maxWidth: "900px",
-    },
-    description: {
-        fontSize: "20px",
-        fontWeight: "400",
-        lineHeight: "1.5",
-        textAlign: "left",
-        maxWidth: "800px",
-        color: "#404040",
-        marginBottom: "32px",
-        textWrap: "balance",
-    },
-} as const;
-
-export default async function Image() {
-    try {
-        const fontData = await getFontData();
-        const imageUrl = DATA.avatarUrl
-            ? new URL(DATA.avatarUrl, DATA.url).toString()
-            : undefined;
-
-        return new ImageResponse(
-            (
-                <div style={styles.outerWrapper}>
-                    <div style={styles.middleWrapper}>
-                        <div style={styles.wrapper}>
-                            {imageUrl && (
-                                <div style={styles.imageSection}>
-                                    <img src={imageUrl} alt={DATA.name} style={styles.image} />
-                                </div>
-                            )}
-                            <div style={styles.mainContainer}>
-                                <div style={styles.title}>{DATA.name}</div>
-                                {DATA.description && (
-                                    <div style={styles.description}>{DATA.description}</div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ),
-            {
-                ...size,
-                fonts: fontData
-                    ? [
-                        {
-                            name: "Cabinet Grotesk",
-                            data: fontData.cabinetGrotesk,
-                            weight: 400,
-                            style: "normal",
-                        },
-                        {
-                            name: "Cabinet Grotesk",
-                            data: fontData.cabinetGrotesk,
-                            weight: 700,
-                            style: "normal",
-                        },
-                        {
-                            name: "Clash Display",
-                            data: fontData.clashDisplay,
-                            weight: 600,
-                            style: "normal",
-                        },
-                    ]
-                    : undefined,
-            }
-        );
-    } catch (error) {
-        console.error("Error generating OpenGraph image:", error);
-        return new Response(
-            `Failed to generate image: ${error instanceof Error ? error.message : "Unknown error"}`,
-            {
-                status: 500,
-            }
-        );
-    }
+async function loadFont() {
+  try {
+    const font = await readFile(
+      join(process.cwd(), "public/fonts/CabinetGrotesk-Medium.ttf"),
+    );
+    return font.buffer.slice(
+      font.byteOffset,
+      font.byteOffset + font.byteLength,
+    ) as ArrayBuffer;
+  } catch {
+    // The built-in font keeps the image usable if the local font is unavailable.
+    return undefined;
+  }
 }
 
+export default async function OpenGraphImage() {
+  const font = await loadFont();
 
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          height: "100%",
+          padding: 32,
+          background: "#0a0a0a",
+          color: "#f5f5f5",
+          fontFamily: font ? "Cabinet Grotesk" : "sans-serif",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            width: "100%",
+            height: "100%",
+            border: "1px solid #303030",
+            borderRadius: 28,
+            padding: 56,
+            background: "linear-gradient(145deg, #202020, #101010 60%)",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                fontSize: 22,
+                letterSpacing: 3,
+                color: "#a3a3a3",
+              }}
+            >
+              0xA7MD
+            </div>
+            <svg width="32" height="112" viewBox="0 0 98 339" fill="none">
+              <path
+                d="M38.1576 -8.4315e-05L0.948278 39.7784L6.704e-05 117.532L92.7054 83.3674L97.1515 31.5545L31.6259 71.1397L33.8701 58.6188L89.0826 24.1004L38.1576 -8.4315e-05Z"
+                fill="white"
+              />
+              <path
+                d="M94.9571 94.709L1.29025 129.826L9.1463 338.194L49.7378 332.8L70.6523 317.371L94.9571 94.709Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+            <div
+              style={{
+                display: "flex",
+                fontSize: 86,
+                fontWeight: 500,
+                letterSpacing: -3,
+                lineHeight: 1.1,
+              }}
+            >
+              Ahmed Al-Shami
+            </div>
+            <div style={{ display: "flex", fontSize: 34, color: "#b3b3b3" }}>
+              Software Engineer
+            </div>
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                height: 1,
+                marginTop: 22,
+                background: "#363636",
+              }}
+            />
+            <div style={{ display: "flex", fontSize: 20, color: "#8c8c8c" }}>
+              Selected projects · Web applications · Digital products
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+    {
+      ...size,
+      fonts: font
+        ? [
+            {
+              name: "Cabinet Grotesk",
+              data: font,
+              weight: 500,
+              style: "normal",
+            },
+          ]
+        : undefined,
+    },
+  );
+}
