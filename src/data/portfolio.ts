@@ -29,8 +29,8 @@ export interface PortfolioExperience {
   start: string;
   end: string;
   description: string;
-  url: string;
-  logoUrl: string;
+  url?: string;
+  logoUrl?: string;
 }
 
 export type SkillCategory =
@@ -72,9 +72,9 @@ export const profile: PortfolioProfile = {
   initials: "AA",
   role: "مطوّر برمجيات",
   description:
-    "أبني تطبيقات ويب سريعة، وأستخدم الذكاء الاصطناعي والأتمتة لتطوير سير العمل.",
+    "أبني تطبيقات ويب عربية متكاملة، من الواجهة وقواعد البيانات إلى الذكاء الاصطناعي والدفع والأتمتة.",
   summary:
-    "أطوّر تطبيقات ويب من الفكرة إلى التنفيذ، مع اهتمام بتجربة الاستخدام ووضوح الواجهة. يشمل عملي تطوير الواجهات والخدمات الخلفية، وربط قواعد البيانات، وبناء تدفقات عمل تستخدم الذكاء الاصطناعي والأتمتة.",
+    "مطوّر Full-Stack متخصص في Next.js وTypeScript وPostgreSQL. أبني منتجات عربية متكاملة تشمل نمذجة البيانات والخدمات الخلفية والواجهات وتكاملات الذكاء الاصطناعي والدفع. صمّمت وطوّرت تطبيقًا للصحة والإنتاجية، ونظام إدارة مطاعم متعددة الفروع، ومنصة لتعلّم الإنجليزية. عملت بعقد على منصة مؤسسية باستخدام Laravel وReact، وأنا متاح للعمل الحضوري والهجين وعن بُعد.",
   location: "الرياض، السعودية",
   avatarUrl: "/me.webp",
   siteUrl: "https://0xa7md.vercel.app/",
@@ -85,7 +85,7 @@ export const contact: PortfolioContact = {
   phone: "+966 55 225 6978",
   socials: [
     { name: "GitHub", url: "https://github.com/0xA7MD1" },
-    { name: "LinkedIn", url: "https://www.linkedin.com/in/0xa7md" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/ahmed-al-shami" },
     { name: "X", url: "https://x.com/0xa7md1" },
     { name: "YouTube", url: "https://www.youtube.com/@0xA7MD" },
     { name: "TikTok", url: "https://www.tiktok.com/@0xa7md1" },
@@ -93,6 +93,16 @@ export const contact: PortfolioContact = {
 };
 
 export const experience: readonly PortfolioExperience[] = [
+  {
+    company: "Maham Tech — Mham Expo",
+    title: "مطوّر برمجيات",
+    workType: "عقد",
+    location: "منصة لإدارة المعارض",
+    start: "2026",
+    end: "2026",
+    description:
+      "تطوير وحدات مالية وموارد بشرية في منصة مؤسسية مبنية على Laravel وReact. شمل العمل إنشاء القيود والضرائب وربطها بالأستاذ العام، معالجة فروقات المدين والدائن، إدارة الوحدات وعقود الإيجار، واستخراج بيانات الموظفين من المستندات.",
+  },
   {
     company: "متجر عزم",
     title: "استشاري تجارة إلكترونية",
@@ -111,13 +121,21 @@ export const skills: readonly PortfolioSkill[] = [
   { name: "React", category: "frontend" },
   { name: "Next.js", category: "frontend" },
   { name: "TypeScript", category: "frontend" },
+  { name: "TanStack Query", category: "frontend" },
+  { name: "Zustand", category: "frontend" },
   { name: "Node.js", category: "backend" },
   { name: "PostgreSQL", category: "backend" },
   { name: "Supabase", category: "backend" },
+  { name: "Laravel", category: "backend" },
+  { name: "Drizzle ORM", category: "backend" },
   { name: "n8n", category: "automation" },
   { name: "Python", category: "automation" },
+  { name: "Vercel AI SDK", category: "automation" },
+  { name: "MCP", category: "automation" },
   { name: "Docker", category: "infrastructure" },
   { name: "Git", category: "infrastructure" },
+  { name: "Vitest", category: "infrastructure" },
+  { name: "Sentry", category: "infrastructure" },
 ];
 
 export const projects: readonly PortfolioProject[] = [
@@ -128,16 +146,18 @@ export const projects: readonly PortfolioProject[] = [
     description:
       "تطبيق يجمع متابعة العادات والتغذية والتمرين، مع تحليل الوجبات بالذكاء الاصطناعي لمساعدة المستخدم على تنظيم يومه.",
     highlights: [
-      "متابعة العادات والتمرين في تجربة واحدة.",
-      "تحليل صورة الوجبة ومتابعة التغذية.",
-      "واجهة عربية تركز على الاستخدام اليومي.",
+      "تحليل صور الوجبات ومدرب ذكي يبني خطط التمارين.",
+      "اشتراكات Polar بثلاث فئات وحصص يومية للذكاء الاصطناعي.",
+      "أكثر من 35 جدولًا للبيانات وسجل مالي يمنع تكرار الحركات.",
     ],
     technologies: [
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
       "Supabase",
-      "OpenRouter SDK",
+      "Vercel AI SDK",
+      "Google Gemini",
+      "Polar",
       "Better Auth",
       "Drizzle ORM",
     ],
@@ -149,6 +169,36 @@ export const projects: readonly PortfolioProject[] = [
     },
     websiteUrl: "https://talluq.vercel.app/",
     // أكد أحمد أن تألق امتداد Intlaq؛ المستودع الحالي خاص.
+  },
+  {
+    id: "sawakhen",
+    title: "Sawakhen ERP",
+    category: "إدارة مطاعم متعددة الفروع",
+    year: "2025 — 2026",
+    description:
+      "نظام عربي لإدارة الوصفات والمشتريات والمخزون والإنتاج والتحويلات بين الفروع والجرد والمصروفات والموارد البشرية، يتطور إلى منتج SaaS.",
+    highlights: [
+      "48 جدولًا في PostgreSQL ومحرك مخزون بمعاملات موحّدة وتكاليف ثابتة.",
+      "38 صلاحية مع تحقق مركزي وسجل تدقيق للعمليات.",
+      "استخراج الفواتير عبر Mistral OCR ومساعد ذكي وخادم MCP محمي بـOAuth.",
+    ],
+    technologies: ["Next.js", "TypeScript", "PostgreSQL", "Drizzle ORM", "Mistral OCR", "MCP"],
+    websiteUrl: "https://sawakhen-erp.vercel.app/",
+  },
+  {
+    id: "verba",
+    title: "Verba",
+    category: "تعلّم الإنجليزية بالكتابة",
+    year: "2026",
+    description:
+      "منصة تساعد المتحدثين بالعربية على تعلّم الإنجليزية بكتابة محادثات مهنية، مع صعوبة تتكيف مع أداء المستخدم ومراجعة متباعدة للكلمات.",
+    highlights: [
+      "963 تبادلًا حواريًا في 20 موضوعًا وقاموس عربي من 2,600 كلمة.",
+      "مسار كتابة سريع ومزامنة للتقدم تعمل عند انقطاع الاتصال.",
+      "196 اختبارًا آليًا لمنطق التعلّم والتقدم باستخدام Vitest.",
+    ],
+    technologies: ["Next.js", "TypeScript", "Supabase", "Drizzle ORM", "Clerk", "Vitest"],
+    websiteUrl: "https://verba-sa.vercel.app/",
   },
   {
     id: "revuhub",

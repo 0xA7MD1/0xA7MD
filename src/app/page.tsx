@@ -227,32 +227,38 @@ export default function Page() {
             </p>
             <a
               className="text-link"
-              href="https://www.linkedin.com/in/0xa7md"
+              href={contact.socials.find((social) => social.name === "LinkedIn")?.url}
               target="_blank"
               rel="noopener noreferrer"
             >
               الملف المهني على LinkedIn
               <ArrowUpLeft size={17} aria-hidden="true" />
             </a>
+            <p>
+              <a className="text-link" href="/resume/ahmed-al-shami.pdf" download>
+                تحميل السيرة الذاتية
+                <ArrowDown size={17} aria-hidden="true" />
+              </a>
+            </p>
           </div>
           <div className="experience-panel">
             <p className="eyebrow">خبرة عملية</p>
             {experience.map((item) => (
               <article key={item.company} className="experience-item">
                 <div className="experience-top">
-                  <Image
+                  {item.logoUrl && <Image
                     src={item.logoUrl}
                     width={42}
                     height={44}
                     style={{ height: "auto" }}
                     alt=""
-                  />
+                  />}
                   <div>
                     <h3>{item.company}</h3>
                     <p>{item.title}</p>
                   </div>
                   <span className="experience-year" dir="ltr">
-                    {item.start} —
+                    {item.start}{item.end !== item.start ? ` — ${item.end}` : ""}
                   </span>
                 </div>
                 <p className="experience-description">{item.description}</p>
@@ -260,22 +266,22 @@ export default function Page() {
                   <span>
                     {item.workType} · {item.location}
                   </span>
-                  <a
+                  {item.url && <a
                     className="text-link"
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    المتجر
+                    زيارة الجهة
                     <ArrowUpLeft size={15} aria-hidden="true" />
-                  </a>
+                  </a>}
                 </div>
               </article>
             ))}
             <div className="education-line">
               <span>التعليم</span>
               <div>
-                <strong>الثانوية العامة</strong>
+                <strong>الثانوية العامة · علوم طبيعية · 98.54%</strong>
                 <span dir="ltr">2026</span>
               </div>
             </div>
@@ -339,11 +345,11 @@ export default function Page() {
           aria-label="أحمد — العودة لأعلى الصفحة"
         >
           <Image
-            className="brand-wordmark"
-            src="/brand/ahmed-wordmark.svg"
-            width={925}
+            className="brand-symbol"
+            src="/brand/ahmed-icon.svg"
+            width={98}
             height={339}
-            alt="أحمد"
+            alt="رمز أحمد: أ"
           />
         </a>
         <nav aria-label="حساباتي" className="social-links">

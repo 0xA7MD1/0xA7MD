@@ -65,10 +65,10 @@ export default function Navbar() {
           onClick={closeMenu}
         >
           <Image
-            className="brand-wordmark"
-            src="/brand/ahmed-wordmark.svg"
-            alt="أحمد"
-            width={925}
+            className="brand-symbol"
+            src="/brand/ahmed-icon.svg"
+            alt="رمز أحمد: أ"
+            width={98}
             height={339}
             priority
           />

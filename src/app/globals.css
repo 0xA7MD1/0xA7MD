@@ -209,12 +209,12 @@
 .skip-link:focus {
   inset-block-start: 12px;
 }
-.brand-wordmark {
+.brand-symbol {
   width: 100%;
   height: auto;
   filter: brightness(0);
 }
-.dark .brand-wordmark {
+.dark .brand-symbol {
   filter: none;
 }
 .tiny-mark,
@@ -261,7 +261,7 @@
   padding: 9px 12px 9px 24px;
 }
 .header-brand {
-  width: 91px;
+  width: 12px;
   flex-shrink: 0;
 }
 .desktop-nav {
@@ -930,6 +930,7 @@
 }
 .education-line div {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 .education-line strong {
@@ -1006,7 +1007,7 @@
   gap: 26px;
 }
 .footer-brand {
-  width: 72px;
+  width: 12px;
 }
 .social-links {
   display: flex;
@@ -1161,7 +1162,7 @@ body:has(.image-dialog[open]) {
     padding-inline: 18px 9px;
   }
   .header-brand {
-    width: 78px;
+    width: 12px;
   }
   .site-header {
     width: calc(100% - 32px);
