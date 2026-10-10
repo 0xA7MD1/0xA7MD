@@ -27,7 +27,8 @@ export interface PortfolioExperience {
   workType: string;
   location: string;
   start: string;
-  end: string;
+  end?: string;
+  status?: string;
   description: string;
   url?: string;
   logoUrl?: string;
@@ -74,11 +75,18 @@ export const profile: PortfolioProfile = {
   description:
     "أبني تطبيقات ويب عربية متكاملة، من الواجهة وقواعد البيانات إلى الذكاء الاصطناعي والدفع والأتمتة.",
   summary:
-    "مطوّر Full-Stack متخصص في Next.js وTypeScript وPostgreSQL. أبني منتجات عربية متكاملة تشمل نمذجة البيانات والخدمات الخلفية والواجهات وتكاملات الذكاء الاصطناعي والدفع. صمّمت وطوّرت تطبيقًا للصحة والإنتاجية، ونظام إدارة مطاعم متعددة الفروع، ومنصة لتعلّم الإنجليزية. عملت بعقد على منصة مؤسسية باستخدام Laravel وReact، وأنا متاح للعمل الحضوري والهجين وعن بُعد.",
+    "مطوّر Full-Stack في الرياض. أبني تطبيقات ويب عربية، وأعمل على المشروع من تصميم الواجهة ونمذجة البيانات إلى الخدمات الخلفية وتكاملات الذكاء الاصطناعي والدفع. أستخدم Next.js وTypeScript وPostgreSQL، ولدي خبرة عملية مع Laravel وReact.",
   location: "الرياض، السعودية",
   avatarUrl: "/me.webp",
   siteUrl: "https://0xa7md.vercel.app/",
 };
+
+export const education = {
+  qualification: "الثانوية العامة",
+  track: "مسار عام",
+  grade: "98.54%",
+  year: "2026",
+} as const;
 
 export const contact: PortfolioContact = {
   email: "0xA7MD@proton.me",
@@ -109,9 +117,9 @@ export const experience: readonly PortfolioExperience[] = [
     workType: "عمل مستقل",
     location: "عن بُعد",
     start: "2025",
-    end: "حتى الآن",
+    status: "مشروع منجز",
     description:
-      "تجهيز متجر عزم وإطلاقه على منصة سلة، من إعداد المنتجات والأسعار والأوصاف إلى تنظيم واجهة المتجر وتجربة الاستخدام.",
+      "جهّزت متجر عزم وأطلقته على منصة سلة. شمل المشروع إعداد المنتجات والأسعار والأوصاف وتنظيم واجهة المتجر وتجربة الاستخدام، واكتمل العمل بعد الإطلاق.",
     url: "https://salla.sa/azm.store",
     logoUrl: "/azm.png",
   },
@@ -232,34 +240,34 @@ export const projects: readonly PortfolioProject[] = [
     videoUrl: "https://www.youtube.com/watch?v=kloR7Q_edN8",
   },
   {
-    id: "abdat",
-    title: "Abdat",
-    category: "منصة فيديو قصيرة",
+    id: "line-of-survival",
+    title: "Line of Survival",
+    category: "موقع لعبة تعاونية",
+    description:
+      "موقع تعريفي للعبة إطفاء وإنقاذ تعاونية على Android. يقدّم فكرة اللعبة وطريقة اللعب، حيث يتعاون اللاعبون على إخماد الحريق وإنقاذ الأثاث من منزل يحترق.",
+    highlights: [
+      "عرض تجربة اللعب الجماعي من لاعب إلى أربعة لاعبين.",
+      "دليل لطريقة اللعب ومهام الإطفاء والإنقاذ والغرف العامة والخاصة.",
+      "واجهة بالعربية والإنجليزية للتعريف باللعبة والإجابة عن الأسئلة الشائعة.",
+    ],
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP"],
+    websiteUrl: "https://line-of-survival-web.vercel.app/",
+    // مشروع إنتاجي بمستودع خاص، بحسب أحمد.
+  },
+  {
+    id: "freelr",
+    title: "Freelr",
+    category: "إدارة أعمال المستقلين",
     year: "2025",
     description:
-      "منصة عربية للفيديوهات القصيرة، تضم موجزًا عموديًا يعمل تلقائيًا، وتفاعلات اجتماعية، وملفات لصنّاع المحتوى، ولوحة تحكم لإدارة المحتوى والصلاحيات.",
+      "منصة للمستقلين تجمع إدارة العملاء والمشاريع وتتبع الوقت وإصدار الفواتير. شاركت في بنائها ضمن فريق من شخصين في SalamHack 2025، وتولّيت تصميم تجربة الاستخدام وبنية الواجهة الأمامية.",
     highlights: [
-      "تجربة موجّهة للجوال مع موجز فيديو عمودي.",
-      "تعليقات وقوائم تشغيل وملفات لصنّاع المحتوى.",
-      "تسجيل دخول وصلاحيات بحسب الدور ولوحة إدارة.",
+      "تنظيم العملاء والمشاريع والفواتير في مكان واحد.",
+      "متابعة الإيرادات والمصروفات وتتبع الوقت.",
+      "توقّع التدفق النقدي بالذكاء الاصطناعي باستخدام Gemini.",
     ],
-    technologies: [
-      "React",
-      "TypeScript",
-      "Vite",
-      "TailwindCSS",
-      "Supabase",
-      "PostgreSQL",
-      "React Query",
-      "Zod",
-      "Radix UI",
-      "shadcn/ui",
-      "Vitest",
-    ],
-    websiteUrl: "https://abdat.vercel.app/",
-    sourceUrl: "https://github.com/0xA7MD1/abdat",
-    videoId: "0uIpI0HU2ts",
-    videoUrl: "https://youtu.be/0uIpI0HU2ts?si=5y5cPLzNkzBcHFMn",
+    technologies: ["Google Gemini"],
+    websiteUrl: "https://freelr.vercel.app/",
   },
 ];
 

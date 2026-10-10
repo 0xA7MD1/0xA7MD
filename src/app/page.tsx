@@ -3,15 +3,18 @@ import {
   ArrowDown,
   ArrowUpLeft,
   Braces,
+  BriefcaseBusiness,
   Cpu,
   Database,
   GitBranch,
+  GraduationCap,
   MapPin,
   Workflow,
 } from "lucide-react";
 import { ProjectCard } from "@/components/project-card";
 import {
   contact,
+  education,
   experience,
   profile,
   projects,
@@ -222,29 +225,51 @@ export default function Page() {
             </div>
             <p>{profile.summary}</p>
             <p>
-              بدأت بالبرمجة، وتعلّمت التصميم لأصمّم مشاريعي بنفسي. هذا الاهتمام
-              بالتفاصيل البصرية يساعدني في بناء واجهات واضحة ومتكاملة.
+              طوّرت منتجات للصحة والإنتاجية وإدارة المطاعم وتعلّم الإنجليزية.
+              وتعلّمت التصميم لأصمّم مشاريعي بنفسي؛ أهتم بوضوح الواجهة بقدر
+              اهتمامي بما يعمل خلفها.
             </p>
-            <a
-              className="text-link"
-              href={contact.socials.find((social) => social.name === "LinkedIn")?.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              الملف المهني على LinkedIn
-              <ArrowUpLeft size={17} aria-hidden="true" />
-            </a>
-            <p>
-              <a className="text-link" href="/resume/ahmed-al-shami.pdf" download>
+            <div className="about-availability">
+              <BriefcaseBusiness size={18} aria-hidden="true" />
+              <div>
+                <strong>متاح لفرص تطوير البرمجيات</strong>
+                <p>حضوري · هجين · عن بُعد</p>
+              </div>
+            </div>
+            <div className="about-actions">
+              <a className="button button-glass" href="/resume/ahmed-al-shami.pdf" download>
                 تحميل السيرة الذاتية
                 <ArrowDown size={17} aria-hidden="true" />
               </a>
-            </p>
+              <a
+                className="text-link"
+                href={contact.socials.find((social) => social.name === "LinkedIn")?.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn
+                <ArrowUpLeft size={17} aria-hidden="true" />
+              </a>
+            </div>
+            <div className="education-card">
+              <GraduationCap size={22} strokeWidth={1.5} aria-hidden="true" />
+              <div>
+                <p>التعليم</p>
+                <h3>{education.qualification} · {education.track}</h3>
+                <span>المعدل <bdi>{education.grade}</bdi> · {education.year}</span>
+              </div>
+            </div>
           </div>
           <div className="experience-panel">
-            <p className="eyebrow">خبرة عملية</p>
+            <p className="eyebrow">من خبرتي العملية</p>
             {experience.map((item) => (
               <article key={item.company} className="experience-item">
+                <div className="experience-meta">
+                  <span className="experience-status">{item.status ?? item.workType}</span>
+                  <span className="experience-year" dir="ltr">
+                    {item.start}{item.end && item.end !== item.start ? ` — ${item.end}` : ""}
+                  </span>
+                </div>
                 <div className="experience-top">
                   {item.logoUrl && <Image
                     src={item.logoUrl}
@@ -257,9 +282,6 @@ export default function Page() {
                     <h3>{item.company}</h3>
                     <p>{item.title}</p>
                   </div>
-                  <span className="experience-year" dir="ltr">
-                    {item.start}{item.end !== item.start ? ` — ${item.end}` : ""}
-                  </span>
                 </div>
                 <p className="experience-description">{item.description}</p>
                 <div className="experience-bottom">
@@ -278,13 +300,6 @@ export default function Page() {
                 </div>
               </article>
             ))}
-            <div className="education-line">
-              <span>التعليم</span>
-              <div>
-                <strong>الثانوية العامة · علوم طبيعية · 98.54%</strong>
-                <span dir="ltr">2026</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
