@@ -1,46 +1,64 @@
-<div align="center">
-<img alt="Portfolio" src="https://github.com/dillionverma/portfolio/assets/16860528/57ffca81-3f0a-4425-b31d-094f61725455" width="90%">
-</div>
+# أحمد — Personal Portfolio
 
-# Portfolio [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdillionverma%2Fportfolio)
+موقع أحمد الشامي للبرمجة، في صفحة واحدة عربية تدعم المظهر الداكن والفاتح. مبني على Next.js 16.1.1 وReact 19 وTypeScript وTailwind CSS 4.
 
-Built with next.js, [shadcn/ui](https://ui.shadcn.com/), and [magic ui](https://magicui.design/), deployed on Vercel.
+## التشغيل المحلي
 
-# Features
+يتطلب Node.js 24 وpnpm 11.25.0.
 
-- Setup only takes a few minutes by editing the [single config file](./src/data/resume.tsx)
-- Built using Next.js 14, React, Typescript, Shadcn/UI, TailwindCSS, Framer Motion, Magic UI
-- Responsive for different devices
-- Optimized for Next.js and Vercel
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
+```
 
-# Getting Started Locally
+يفتح الموقع على `http://localhost:3000`. إذا كان المنفذ مستخدمًا:
 
-1. Clone this repository to your local machine:
+```sh
+pnpm dev --port 3197
+```
 
-   ```bash
-   git clone https://github.com/dillionverma/portfolio
-   ```
+للبناء والتدقيق:
 
-2. Move to the cloned directory
+```sh
+pnpm build
+pnpm lint
+```
 
-   ```bash
-   cd portfolio
-   ```
+لا يحتاج الموقع قاعدة بيانات أو متغيرات بيئة. روابط التواصل تفتح تطبيق البريد بعناوين مختلفة للتوظيف والمشاريع، ولا ترسل رسالة من الموقع نفسه.
 
-3. Install dependencies:
+## تعديل المحتوى
 
-   ```bash
-   pnpm install
-   ```
+- `src/data/portfolio.ts`: النبذة، المشاريع، التقنيات، الخبرة وروابط التواصل.
+- `src/app/page.tsx`: أقسام الصفحة وترتيبها.
+- `src/app/globals.css`: ألوان الثيم ومسافاته ومعالجة الهوية.
+- `src/components/project-card.tsx`: العرض الواسع للمشاريع، عارض الصور والفيديو.
+- `public/brand/`: شعار أحمد المعتمد بالـSVG.
+- `public/projects/talluq.png`: ملصق تألق الأصلي بدقة 4672×3488.
 
-4. Start the local Server:
+صورة المشروع تستخدم أبعادها الأصلية، بعرض يصل إلى 1152px. النسخة الموجودة في الصفحة محسّنة ومتجاوبة، و«تكبير الصورة» يفتح المصدر الأصلي مع تكبير التفاصيل وإمكانية فتحه في تبويب مستقل. Escape يغلق العارض ويعيد التركيز لزر الصورة. النسخة الأصلية تُحمّل عند الحاجة.
 
-   ```bash
-   pnpm dev
-   ```
+RevuHub وAbdat يستخدمان أغلفة نصية واضحة لعروض الفيديو الموجودة في البورتفوليو السابق؛ لا توجد صور شاشة مخترعة أو صور مصغرة ممدودة. YouTube لا يُحمّل المشغّل حتى الضغط، وتتوفر روابط مستقلة للموقع والكود والفيديو. توفر وتشغيل الفيديو نفسه يعتمدان على YouTube وإعدادات صاحبه.
 
-5. Open the [Config file](./src/data/resume.tsx) and make changes
+## الهوية والثيم
 
-# License
+الألوان ومعالجة المسرح بالنقاط والتوهج والهيدر الزجاجي والأزرار نُقلت من مشروع أحمد المحلي `../cloud job automation`. لم يُنقل منطق المشروع الخلفي أو أي إعدادات اتصال منه.
 
-Licensed under the [MIT license](https://github.com/dillionverma/portfolio/blob/main/LICENSE.md).
+خطوط Thmanyah تُقرأ من جهاز الزائر فقط إن كانت مثبتة؛ لا يتم توزيعها أو استضافتها. البديل هو IBM Plex Sans Arabic، مع Geist Mono للنصوص التقنية. الشعار نفسه محفوظ دون تغيير paths، وتنعكس ألوان عرضه بحسب المظهر الفاتح والداكن.
+
+## القرارات المعتمدة
+
+- صفحة واحدة، برمجة فقط، والتصميم مهارة مساعدة داخل النبذة.
+- تألق هو امتداد Intlaq السابق: `https://talluq.vercel.app/`، ومستودعه خاص. تظهر زيارة الموقع فقط؛ بيانات النسخة السابقة محفوظة خارج قائمة المشاريع.
+- التواصل واضح لفرصة وظيفية في البرمجة أو مشروع برمجي مستقل.
+- المحتوى مأخوذ من السيرة السابقة وما أكده أحمد؛ لا توجد أرقام أداء أو شهادات عملاء مصطنعة.
+
+## التحقق — 2026-10-10
+
+- نجح بناء الإنتاج وTypeScript باستخدام `next build`.
+- نجح ESLint للملفات المعدلة في الصفحة والمكونات والبيانات والإعدادات.
+- تحققت الصفحة وOG والأيقونة باستجابة 200، والمسار غير الموجود باستجابة 404.
+- فُحص عرض الجوال 320 و390 بكسل، والمظهران، والتنقل الداخلي، وتكبير الأصل وإغلاقه بلوحة المفاتيح واستعادة التركيز. لا تجاوز أفقي في الأقسام.
+- لقطات المعاينة في `../output/portfolio-preview/home.jpg` و`projects.jpg` و`mobile.jpg`. خادم الفحص أُوقف بعد الحفظ؛ أعد تشغيله بالأمر أعلاه.
+- التنفيذ محلي؛ لم يُنشر على Vercel.
+
+الترخيص الأصلي محفوظ في `LICENSE`.

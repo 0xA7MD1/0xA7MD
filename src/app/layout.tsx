@@ -1,94 +1,67 @@
+import type { Metadata } from "next";
+import { Geist_Mono, IBM_Plex_Sans_Arabic } from "next/font/google";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { DATA } from "@/data/resume";
-import { cn } from "@/lib/utils";
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { profile } from "@/data/portfolio";
 import "./globals.css";
-import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-sans",
+const plex = IBM_Plex_Sans_Arabic({
   weight: ["400", "500", "600", "700"],
+  subsets: ["arabic", "latin"],
+  variable: "--font-plex",
+  display: "swap",
 });
-
-const geistMono = Geist_Mono({
+const mono = Geist_Mono({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-mono",
+  weight: ["400", "500"],
+  variable: "--font-geist-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(DATA.url),
+  metadataBase: new URL(profile.siteUrl),
   title: {
-    default: DATA.name,
-    template: `%s | ${DATA.name}`,
+    default: "أحمد الشامي | تطوير البرمجيات",
+    template: "%s | أحمد الشامي",
   },
-  description: DATA.description,
+  description: profile.description,
   openGraph: {
-    title: `${DATA.name}`,
-    description: DATA.description,
-    url: DATA.url,
-    siteName: `${DATA.name}`,
-    locale: "en_US",
+    title: "أحمد الشامي | تطوير البرمجيات",
+    description: profile.description,
+    url: profile.siteUrl,
+    siteName: "أحمد — 0xA7MD",
+    locale: "ar_SA",
     type: "website",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
   twitter: {
-    title: `${DATA.name}`,
     card: "summary_large_image",
-  },
-  verification: {
-    google: "",
-    yandex: "",
+    title: "أحمد الشامي | تطوير البرمجيات",
+    description: profile.description,
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        suppressHydrationWarning
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased relative",
-          geist.variable,
-          geistMono.variable
-        )}
-      >
-        <ThemeProvider attribute="class" defaultTheme="light">
-          <TooltipProvider delayDuration={0}>
-            <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
-              <FlickeringGrid
-                className="h-full w-full"
-                squareSize={2}
-                gridGap={2}
-                style={{
-                  maskImage: "linear-gradient(to bottom, black, transparent)",
-                  WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
-                }}
-              />
-            </div>
-            <div className="relative z-10 max-w-2xl mx-auto py-12 pb-24 sm:py-24 px-6">
-              {children}
-            </div>
-            <Navbar />
-          </TooltipProvider>
+    <html
+      lang="ar"
+      dir="rtl"
+      className={`${plex.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <a href="#main-content" className="skip-link">
+            انتقل للمحتوى
+          </a>
+          <Navbar />
+          {children}
         </ThemeProvider>
       </body>
     </html>
