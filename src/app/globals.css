@@ -256,12 +256,18 @@
 .header-brand {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   flex-shrink: 0;
   border: 1px solid var(--hairline);
-  border-radius: 14px;
-  background: var(--glass);
+  border-radius: 16px;
+  background: var(--background);
+  overflow: hidden;
+}
+.header-brand .brand-symbol {
+  display: block;
+  flex-shrink: 0;
+  max-width: none;
 }
 .desktop-nav {
   display: flex;
@@ -839,35 +845,58 @@
 }
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 24px;
   align-items: start;
 }
 .about-copy {
-  padding-block: 8px;
+  min-width: 0;
+  padding: clamp(24px, 3vw, 36px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: linear-gradient(145deg, var(--glass-hover), var(--glass));
 }
 .profile-line {
   display: flex;
-  gap: 18px;
+  gap: 20px;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: 26px;
+}
+.profile-emblem {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: var(--background);
+  border: 1px solid var(--border);
+}
+.profile-caption {
+  display: block;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  margin-bottom: 8px;
+  text-align: start;
 }
 .profile-monogram {
-  width: 15px;
-  height: 52px;
+  width: 14px;
+  height: 48px;
 }
 .profile-line h3 {
-  font-size: 21px;
-  font-weight: 500;
-  margin-bottom: 2px;
+  font-size: clamp(23px, 2.2vw, 29px);
+  font-weight: 600;
+  margin-bottom: 6px;
 }
 .profile-line p {
   font-size: 12px;
   color: var(--muted-foreground);
 }
 .about-copy > p {
-  font-size: 16px;
-  line-height: 1.95;
+  font-size: 15px;
+  line-height: 2;
   margin-bottom: 16px;
   color: var(--muted-foreground);
 }
@@ -875,9 +904,14 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-top: 28px;
-  padding-inline-start: 16px;
-  border-inline-start: 2px solid var(--border-strong);
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--glass);
+}
+.about-availability > svg {
+  flex-shrink: 0;
 }
 .about-availability strong {
   font-size: 14px;
@@ -892,15 +926,15 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 22px;
-  margin-top: 26px;
+  gap: 18px;
+  margin-top: 20px;
 }
 .education-card {
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding-top: 26px;
-  margin-top: 32px;
+  gap: 14px;
+  padding-top: 22px;
+  margin-top: 26px;
   border-top: 1px solid var(--border);
 }
 .education-card p,
@@ -910,23 +944,36 @@
 }
 .education-card h3 {
   margin-block: 6px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 .experience-panel {
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 32px;
-  background: var(--glass);
+  min-width: 0;
+  display: grid;
+  gap: 16px;
+}
+.experience-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 4px 6px;
+  color: var(--muted-foreground);
+}
+.experience-heading h3 {
+  font-size: 14px;
+  font-weight: 500;
 }
 .experience-item {
-  padding-block: 26px;
+  padding: 24px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 20px;
 }
 .experience-item + .experience-item {
   border-top: 1px solid var(--border);
 }
 .experience-item:last-child {
-  padding-bottom: 0;
+  padding-bottom: 24px;
 }
 .experience-meta {
   display: flex;
@@ -954,8 +1001,10 @@
   object-fit: contain;
 }
 .experience-top h3 {
-  font-size: 17px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 .experience-top p {
   font-size: 12px;
@@ -966,11 +1015,12 @@
   margin-inline-start: auto;
   font-family: var(--font-mono);
   color: var(--muted-foreground);
-  font-size: 11px;
+  font-size: 12px;
+  flex-shrink: 0;
 }
 .experience-description {
   font-size: 13px;
-  line-height: 1.9;
+  line-height: 1.95;
   color: var(--muted-foreground);
   margin-block: 20px;
 }
@@ -1190,7 +1240,7 @@ body:has(.image-dialog[open]) {
     font-size: 18px;
   }
   .about-grid {
-    gap: 36px;
+    gap: 24px;
   }
   .section-heading {
     gap: 24px;
@@ -1400,7 +1450,7 @@ body:has(.image-dialog[open]) {
     font-size: 24px;
   }
   .experience-panel {
-    padding: 24px;
+    padding: 0;
   }
   .experience-year {
     font-size: 10px;

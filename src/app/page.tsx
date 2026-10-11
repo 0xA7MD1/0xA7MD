@@ -12,6 +12,7 @@ import {
   Workflow,
 } from "lucide-react";
 import { ProjectCard } from "@/components/project-card";
+import { PageMotion } from "@/components/page-motion";
 import {
   contact,
   education,
@@ -78,6 +79,7 @@ function mailLink(subject: string) {
 export default function Page() {
   return (
     <main id="main-content">
+      <PageMotion />
       <section id="home" className="hero stage">
         <div className="stage-pattern" aria-hidden="true" />
         <div className="hero-inner content-width">
@@ -215,8 +217,13 @@ export default function Page() {
         <div className="about-grid">
           <div className="about-copy">
             <div className="profile-line">
-              <span className="profile-monogram" aria-hidden="true" />
+              <span className="profile-emblem" aria-hidden="true">
+                <span className="profile-monogram" />
+              </span>
               <div>
+                <span className="profile-caption" dir="ltr">
+                  SOFTWARE ENGINEER
+                </span>
                 <h3>{profile.name}</h3>
                 <p>
                   {profile.role} · {profile.location}
@@ -237,13 +244,20 @@ export default function Page() {
               </div>
             </div>
             <div className="about-actions">
-              <a className="button button-glass" href="/resume/ahmed-al-shami.pdf" download>
+              <a
+                className="button button-glass"
+                href="/resume/ahmed-al-shami.pdf"
+                download
+              >
                 تحميل السيرة الذاتية
                 <ArrowDown size={17} aria-hidden="true" />
               </a>
               <a
                 className="text-link"
-                href={contact.socials.find((social) => social.name === "LinkedIn")?.url}
+                href={
+                  contact.socials.find((social) => social.name === "LinkedIn")
+                    ?.url
+                }
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -255,31 +269,45 @@ export default function Page() {
               <GraduationCap size={22} strokeWidth={1.5} aria-hidden="true" />
               <div>
                 <p>التعليم</p>
-                <h3>{education.qualification} · {education.track}</h3>
-                <span>المعدل <bdi>{education.grade}</bdi> · {education.year}</span>
+                <h3>
+                  {education.qualification} · {education.track}
+                </h3>
+                <span>
+                  المعدل <bdi>{education.grade}</bdi> · {education.year}
+                </span>
               </div>
             </div>
           </div>
           <div className="experience-panel">
-            <p className="eyebrow">من خبرتي العملية</p>
+            <div className="experience-heading">
+              <BriefcaseBusiness size={18} aria-hidden="true" />
+              <h3>من خبرتي العملية</h3>
+            </div>
             {experience.map((item) => (
               <article key={item.company} className="experience-item">
                 <div className="experience-meta">
-                  <span className="experience-status">{item.status ?? item.workType}</span>
+                  <span className="experience-status">
+                    {item.status ?? item.workType}
+                  </span>
                   <span className="experience-year" dir="ltr">
-                    {item.start}{item.end && item.end !== item.start ? ` — ${item.end}` : ""}
+                    {item.start}
+                    {item.end && item.end !== item.start
+                      ? ` — ${item.end}`
+                      : ""}
                   </span>
                 </div>
                 <div className="experience-top">
-                  {item.logoUrl && <Image
-                    src={item.logoUrl}
-                    width={42}
-                    height={44}
-                    style={{ height: "auto" }}
-                    alt=""
-                  />}
+                  {item.logoUrl && (
+                    <Image
+                      src={item.logoUrl}
+                      width={42}
+                      height={45}
+                      style={{ height: "auto" }}
+                      alt=""
+                    />
+                  )}
                   <div>
-                    <h3>{item.company}</h3>
+                    <h3 dir="auto">{item.company}</h3>
                     <p>{item.title}</p>
                   </div>
                 </div>
@@ -288,15 +316,17 @@ export default function Page() {
                   <span>
                     {item.workType} · {item.location}
                   </span>
-                  {item.url && <a
-                    className="text-link"
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    زيارة الجهة
-                    <ArrowUpLeft size={15} aria-hidden="true" />
-                  </a>}
+                  {item.url && (
+                    <a
+                      className="text-link"
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      زيارة الجهة
+                      <ArrowUpLeft size={15} aria-hidden="true" />
+                    </a>
+                  )}
                 </div>
               </article>
             ))}

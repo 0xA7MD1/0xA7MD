@@ -70,6 +70,7 @@ export default function Navbar() {
             alt="رمز أحمد: أ"
             width={98}
             height={339}
+            style={{ width: "auto", height: 40 }}
             priority
           />
         </a>
