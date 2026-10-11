@@ -14,17 +14,40 @@ export function PageMotion() {
       )
         return;
       try {
-        const [{ gsap }, { ScrollToPlugin }] = await Promise.all([
-          import("gsap"),
-          import("gsap/ScrollToPlugin"),
-        ]);
+        const [{ gsap }, { ScrollTrigger }, { ScrollSmoother }] =
+          await Promise.all([
+            import("gsap"),
+            import("gsap/ScrollTrigger"),
+            import("gsap/ScrollSmoother"),
+          ]);
         if (disposed) return;
-        gsap.registerPlugin(ScrollToPlugin);
+        gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
         const media = gsap.matchMedia();
         media.add("(prefers-reduced-motion: no-preference)", (context) => {
           const main = document.getElementById("main-content");
           if (!main) return;
-          let restoreScroll = () => {};
+          const root = document.documentElement;
+          const previousBehavior = root.style.scrollBehavior;
+          root.style.scrollBehavior = "auto";
+          const smoother = ScrollSmoother.create({
+            wrapper: "#smooth-wrapper",
+            content: main,
+            smooth: 1.1,
+            smoothTouch: 0,
+            effects: false,
+            normalizeScroll: false,
+            // Toolbar focus and explicit anchor focus must not jump the page.
+            onFocusIn: (_self, event) => {
+              const target = event.target;
+              if (
+                target instanceof Element &&
+                (target.closest(".project-browser") ||
+                  target.matches("section, main"))
+              )
+                return false;
+            },
+          });
+          main.dataset.scrollSmoothing = "ready";
           const reveal = (element: Element) => {
             if (element.contains(document.activeElement)) return;
             context.add(() => {
@@ -103,45 +126,27 @@ export function PageMotion() {
             event.preventDefault();
             if (window.location.hash !== hash)
               window.history.pushState(null, "", hash);
-            gsap.killTweensOf(window);
-            restoreScroll();
-            const root = document.documentElement;
-            const previousBehavior = root.style.scrollBehavior;
-            root.style.scrollBehavior = "auto";
-            restoreScroll = () => {
-              root.style.scrollBehavior = previousBehavior;
-            };
-            context.add(() => {
-              gsap.to(window, {
-                duration: 0.7,
-                ease: "power2.inOut",
-                overwrite: "auto",
-                scrollTo: {
-                  y: target,
-                  offsetY:
-                    parseFloat(getComputedStyle(target).scrollMarginTop) || 0,
-                  autoKill: true,
-                  onAutoKill: restoreScroll,
-                },
-                onInterrupt: restoreScroll,
-                onComplete: () => {
-                  restoreScroll();
-                  const hadTabIndex = target.hasAttribute("tabindex");
-                  if (!hadTabIndex) target.setAttribute("tabindex", "-1");
-                  target.focus({ preventScroll: true });
-                  if (!hadTabIndex)
-                    target.addEventListener(
-                      "blur",
-                      () => target.removeAttribute("tabindex"),
-                      { once: true },
-                    );
-                },
-              });
-            });
+            const offset =
+              parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+            smoother.scrollTo(
+              Math.max(0, smoother.offset(target, `top ${offset}px`)),
+              true,
+            );
+            const hadTabIndex = target.hasAttribute("tabindex");
+            if (!hadTabIndex) target.setAttribute("tabindex", "-1");
+            target.focus({ preventScroll: true });
+            if (!hadTabIndex)
+              target.addEventListener(
+                "blur",
+                () => target.removeAttribute("tabindex"),
+                { once: true },
+              );
           };
           document.addEventListener("click", navigate);
           return () => {
-            restoreScroll();
+            smoother.kill();
+            root.style.scrollBehavior = previousBehavior;
+            delete main.dataset.scrollSmoothing;
             observer.disconnect();
             document.removeEventListener("click", navigate);
           };

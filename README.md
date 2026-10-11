@@ -79,3 +79,8 @@ pnpm lint
 
 - تحقق هذه الجولة: نجح بناء نسخة Git النظيفة 7ebc342 بعد frozen-lockfile دون تنزيل حزم. فحصت المواقع الستة داخل الإطار والتصفح وإعادة التركيز والجوال 390/320 والمظهر الفاتح؛ لا أخطاء console في فحص الصفحة. صور التحقق في ../output/project-browser/.
 
+
+## قصور التمرير — 2026-10-11
+
+PageMotion يحمل GSAP وScrollTrigger وScrollSmoother مؤجلًا. smooth: 1.1 يضيف استمرارًا تدريجيًا بعد توقف العجلة؛ smoothTouch: 0 يترك لمس الجوال طبيعيًا. normalizeScroll معطل، ولا تُلتقط عجلة iframe. scrollTo الخاص بـScrollSmoother يوحّد روابط الأقسام مع التمرير؛ autoResize يتابع تغير ارتفاع كارد المشروع. الهيدر خارج الغلاف لتثبيته. reduced-motion يلغي التأثير ويعيد التمرير الأصلي. المرجع: https://gsap.com/docs/v3/Plugins/ScrollSmoother/.
+
