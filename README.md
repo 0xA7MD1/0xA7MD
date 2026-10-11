@@ -84,3 +84,6 @@ pnpm lint
 
 PageMotion يحمل GSAP وScrollTrigger وScrollSmoother مؤجلًا. smooth: 1.1 يضيف استمرارًا تدريجيًا بعد توقف العجلة؛ smoothTouch: 0 يترك لمس الجوال طبيعيًا. normalizeScroll معطل، ولا تُلتقط عجلة iframe. scrollTo الخاص بـScrollSmoother يوحّد روابط الأقسام مع التمرير؛ autoResize يتابع تغير ارتفاع كارد المشروع. الهيدر خارج الغلاف لتثبيته. reduced-motion يلغي التأثير ويعيد التمرير الأصلي. المرجع: https://gsap.com/docs/v3/Plugins/ScrollSmoother/.
 
+
+- تحقق قصور التمرير: نجح build/TypeScript لنسخة Git النظيفة 81c45ff وESLint. فحص العجلة أثبت تأخر المحتوى ثم لحاقه، الهيدر ثابت، الأقسام تستقر قرب110px، والكارد يتابع الارتفاع والجوال390 بلا تجاوز. التحقق محفوظ في ../output/inertia-scroll/.
+
