@@ -50,7 +50,8 @@ export default function RootLayout({
       className={`${plex.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
-      <body>
+      {/* Browser extensions can inject body attributes before React hydrates. */}
+      <body suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

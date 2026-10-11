@@ -75,7 +75,7 @@ export const profile: PortfolioProfile = {
   description:
     "أبني تطبيقات ويب عربية متكاملة، من الواجهة وقواعد البيانات إلى الذكاء الاصطناعي والدفع والأتمتة.",
   summary:
-    "مطوّر Full-Stack في الرياض. أبني تطبيقات ويب عربية، وأعمل على المشروع من تصميم الواجهة ونمذجة البيانات إلى الخدمات الخلفية وتكاملات الذكاء الاصطناعي والدفع. أستخدم Next.js وTypeScript وPostgreSQL، ولدي خبرة عملية مع Laravel وReact.",
+    "مطوّر Full-Stack في الرياض. أبني تطبيقات ويب عربية، وأعمل على المشروع من تصميم الواجهة ونمذجة البيانات إلى الخدمات الخلفية وتكاملات الذكاء الاصطناعي والدفع. أستخدم Next.js وTypeScript وPostgreSQL وReact.",
   location: "الرياض، السعودية",
   avatarUrl: "/me.webp",
   siteUrl: "https://0xa7md.vercel.app/",
@@ -108,6 +108,7 @@ export const experience: readonly PortfolioExperience[] = [
     location: "منصة لإدارة المعارض",
     start: "2026",
     end: "2026",
+    url: "https://mahamexpo.sa/",
     description:
       "تطوير وحدات مالية وموارد بشرية في منصة مؤسسية مبنية على Laravel وReact. شمل العمل إنشاء القيود والضرائب وربطها بالأستاذ العام، معالجة فروقات المدين والدائن، إدارة الوحدات وعقود الإيجار، واستخراج بيانات الموظفين من المستندات.",
   },
@@ -120,7 +121,6 @@ export const experience: readonly PortfolioExperience[] = [
     status: "مشروع منجز",
     description:
       "جهّزت متجر عزم وأطلقته على منصة سلة. شمل المشروع إعداد المنتجات والأسعار والأوصاف وتنظيم واجهة المتجر وتجربة الاستخدام، واكتمل العمل بعد الإطلاق.",
-    url: "https://salla.sa/azm.store",
     logoUrl: "/azm.png",
   },
 ];
@@ -190,7 +190,14 @@ export const projects: readonly PortfolioProject[] = [
       "38 صلاحية مع تحقق مركزي وسجل تدقيق للعمليات.",
       "استخراج الفواتير عبر Mistral OCR ومساعد ذكي وخادم MCP محمي بـOAuth.",
     ],
-    technologies: ["Next.js", "TypeScript", "PostgreSQL", "Drizzle ORM", "Mistral OCR", "MCP"],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Drizzle ORM",
+      "Mistral OCR",
+      "MCP",
+    ],
     websiteUrl: "https://sawakhen-erp.vercel.app/",
   },
   {
@@ -205,7 +212,14 @@ export const projects: readonly PortfolioProject[] = [
       "مسار كتابة سريع ومزامنة للتقدم تعمل عند انقطاع الاتصال.",
       "196 اختبارًا آليًا لمنطق التعلّم والتقدم باستخدام Vitest.",
     ],
-    technologies: ["Next.js", "TypeScript", "Supabase", "Drizzle ORM", "Clerk", "Vitest"],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "Drizzle ORM",
+      "Clerk",
+      "Vitest",
+    ],
     websiteUrl: "https://verba-sa.vercel.app/",
   },
   {

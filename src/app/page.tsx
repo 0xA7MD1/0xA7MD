@@ -11,7 +11,7 @@ import {
   MapPin,
   Workflow,
 } from "lucide-react";
-import { ProjectCard } from "@/components/project-card";
+import { ProjectList } from "@/components/project-list";
 import { PageMotion } from "@/components/page-motion";
 import {
   contact,
@@ -149,11 +149,7 @@ export default function Page() {
           title="من الأفكار إلى منتجات فعلية."
           description="تطبيقات ويب وتجارب في الذكاء الاصطناعي والأتمتة. كل مشروع يحكي جزءًا من طريقة عملي."
         />
-        <div className="project-list">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index + 1} />
-          ))}
-        </div>
+        <ProjectList projects={projects} />
         <a
           className="all-work-link"
           href="https://github.com/0xA7MD1"
