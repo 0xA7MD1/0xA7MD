@@ -495,10 +495,22 @@
   border-radius: 50%;
   background: radial-gradient(closest-side, var(--signal-glow), transparent);
 }
+.hero-brand {
+  position: relative;
+  transform: rotate(-8deg);
+}
 .hero-brand-mark {
   width: 105px;
   height: 362px;
-  transform: rotate(-8deg);
+}
+/* The canvas is larger than the mark so the metal edges are not clipped. */
+.hero-brand-shader {
+  position: absolute;
+  inset: -11% -76%;
+}
+.hero-brand[data-shader="ready"] .hero-brand-mark {
+  opacity: 0;
+  transition: opacity 0.5s 0.35s;
 }
 .brand-orbit {
   position: absolute;

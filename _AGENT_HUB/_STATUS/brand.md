@@ -2,6 +2,7 @@
 آخر تحديث: 2026-10-26
 
 ## الحين
+- Hero logo shader: Paper Shaders `LiquidMetal` with a blue tint, checked in dark, light and mobile. Waiting for Ahmed's opinion on the look.
 - Signal color: electric blue applied through `--signal` tokens in `src/app/globals.css`, checked in light, dark and mobile. Waiting for Ahmed to approve the color.
 
 ## يحتاجك
