@@ -24,4 +24,5 @@
 - رابط مهام إكسبو https://mahamexpo.sa/. متجر عزم يبقى عملًا منجزًا بلا رابط لأن الوجهة تغيرت. أزيلت عبارة الخبرة العملية مع Laravel من النبذة، مع إبقاء تقنيات الخبرة الفعلية.
 - suppressHydrationWarning على body يعالج خصائص إضافات المتصفح فقط؛ لا تستخدمه لإخفاء اختلاف المكونات.
 
+- Hero logo shader (requested by Ahmed on 2026-10-26): Paper Shaders `LiquidMetal` in `src/components/hero-brand-mark.tsx`, on the hero logo only. It is the one allowed continuous effect: it loads after the first paint, pauses off-screen, shows a still frame under reduced motion, and falls back to the CSS mask without WebGL2.
 

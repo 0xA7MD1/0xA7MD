@@ -48,7 +48,7 @@
   --color-destructive-foreground: #fff;
   --color-border: var(--border);
   --color-input: var(--border);
-  --color-ring: var(--muted-foreground);
+  --color-ring: var(--signal-ink);
   --color-stage: var(--stage);
   --font-sans:
     "Thmanyah Sans", var(--font-plex), ui-sans-serif, system-ui, sans-serif;
@@ -61,8 +61,15 @@
   --radius-xl: 16px;
 }
 
+/* One signal color on a neutral core: fills use --signal, text and icons use --signal-ink. */
 :root {
   color-scheme: light;
+  --signal: oklch(0.55 0.23 264);
+  --signal-ink: oklch(0.55 0.23 264);
+  --signal-on: #fff;
+  --signal-soft: color-mix(in oklch, var(--signal) 7%, transparent);
+  --signal-line: color-mix(in oklch, var(--signal-ink) 32%, transparent);
+  --signal-glow: color-mix(in oklch, var(--signal) 16%, transparent);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -78,18 +85,26 @@
   --header-bg: rgb(255 255 255 / 0.96);
   --header-shadow:
     0 14px 40px rgb(0 0 0 / 0.08), inset 0 1px 0 rgb(255 255 255 / 0.9);
-  --stage-glow: rgb(0 0 0 / 0.06);
+  --stage-glow: color-mix(in oklch, var(--signal) 9%, transparent);
   --cta-bg:
-    linear-gradient(rgb(255 255 255 / 0.22), transparent 42%),
-    linear-gradient(135deg, #404040, #171717 42%, #000);
-  --cta-fg: #fff;
-  --cta-icon-fg: #0a0a0a;
-  --cta-border: rgb(0 0 0 / 0.1);
-  --cta-glow: rgb(0 0 0 / 0.2);
+    linear-gradient(rgb(255 255 255 / 0.16), transparent 45%),
+    linear-gradient(
+      135deg,
+      color-mix(in oklch, var(--signal) 88%, #fff),
+      var(--signal) 45%,
+      color-mix(in oklch, var(--signal) 82%, #000)
+    );
+  --cta-fg: var(--signal-on);
+  --cta-icon-fg: var(--signal);
+  --cta-border: color-mix(in oklch, var(--signal) 75%, #000);
+  --cta-glow: color-mix(in oklch, var(--signal) 30%, transparent);
 }
 
 .dark {
   color-scheme: dark;
+  --signal-ink: oklch(0.7 0.14 262);
+  --signal-soft: color-mix(in oklch, var(--signal) 12%, transparent);
+  --signal-glow: color-mix(in oklch, var(--signal) 26%, transparent);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -106,14 +121,9 @@
   --header-bg: rgb(18 18 18 / 0.96);
   --header-shadow:
     0 18px 50px rgb(0 0 0 / 0.45), inset 0 1px 0 rgb(255 255 255 / 0.06);
-  --stage-glow: rgb(255 255 255 / 0.07);
-  --cta-bg:
-    linear-gradient(rgb(255 255 255 / 0.22), transparent 42%),
-    linear-gradient(135deg, #fff, #e5e5e5 42%, #a3a3a3);
-  --cta-fg: #0a0a0a;
-  --cta-icon-fg: #fff;
-  --cta-border: rgb(255 255 255 / 0.22);
-  --cta-glow: rgb(255 255 255 / 0.1);
+  --stage-glow: color-mix(in oklch, var(--signal) 18%, transparent);
+  --cta-border: color-mix(in oklch, var(--signal) 70%, #fff);
+  --cta-glow: color-mix(in oklch, var(--signal) 38%, transparent);
 }
 
 @layer base {
@@ -144,12 +154,12 @@
     cursor: pointer;
   }
   :focus-visible {
-    outline: 2px solid var(--foreground);
+    outline: 2px solid var(--signal-ink);
     outline-offset: 5px;
   }
   ::selection {
-    color: var(--background);
-    background: var(--foreground);
+    color: var(--signal-on);
+    background: var(--signal);
   }
   section[id],
   article[id] {
@@ -194,8 +204,8 @@
   inset-inline-start: 24px;
   z-index: 100;
   padding: 12px 20px;
-  color: var(--background);
-  background: var(--foreground);
+  color: var(--signal-on);
+  background: var(--signal);
   border-radius: 12px;
 }
 .skip-link:focus {
@@ -291,7 +301,7 @@
   content: "";
   width: 4px;
   height: 4px;
-  background: currentColor;
+  background: var(--signal-ink);
   border-radius: 50%;
   margin: 3px auto -7px;
 }
@@ -390,6 +400,9 @@
   min-height: 40px;
   padding-inline: 22px;
   font-size: 14px;
+  box-shadow:
+    0 6px 18px var(--cta-glow),
+    inset 0 1px rgb(255 255 255 / 0.35);
 }
 .hero {
   margin-top: 20px;
@@ -413,11 +426,12 @@
 .eyebrow span[dir="ltr"] {
   font-family: var(--font-mono);
   font-size: 11px;
+  color: var(--signal-ink);
 }
 .eyebrow-line {
   width: 26px;
   height: 1px;
-  background: var(--border-strong);
+  background: var(--signal-line);
 }
 .gradient-heading {
   background: linear-gradient(
@@ -473,10 +487,30 @@
   height: 440px;
   min-width: 0;
 }
+.brand-scene::before {
+  content: "";
+  position: absolute;
+  inset: 14% 22%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--signal-glow), transparent);
+}
+.hero-brand {
+  position: relative;
+  transform: rotate(-8deg);
+}
 .hero-brand-mark {
   width: 105px;
   height: 362px;
-  transform: rotate(-8deg);
+}
+/* The canvas is larger than the mark so the metal edges are not clipped. */
+.hero-brand-shader {
+  position: absolute;
+  inset: -11% -76%;
+}
+.hero-brand[data-shader="ready"] .hero-brand-mark {
+  opacity: 0;
+  transition: opacity 0.5s 0.35s;
 }
 .brand-orbit {
   position: absolute;
@@ -491,7 +525,7 @@
   height: 70%;
   transform: rotate(40deg);
   border-style: dashed;
-  opacity: 0.65;
+  border-color: var(--signal-line);
 }
 .scene-coordinate {
   position: absolute;
@@ -521,6 +555,9 @@
   backdrop-filter: blur(12px);
   font-family: var(--font-mono);
   font-size: 11px;
+}
+.scene-tag svg {
+  color: var(--signal-ink);
 }
 .tag-code {
   top: 74px;
@@ -592,7 +629,7 @@
 .project-index {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--foreground);
+  color: var(--signal-ink);
 }
 .project-year {
   margin-inline-start: auto;
@@ -687,7 +724,7 @@
 .project-details li svg {
   flex-shrink: 0;
   align-self: center;
-  color: var(--foreground);
+  color: var(--signal-ink);
 }
 .tags {
   display: flex;
@@ -782,6 +819,7 @@
 }
 .text-link:hover {
   gap: 12px;
+  color: var(--signal-ink);
 }
 .all-work-link {
   display: flex;
@@ -812,9 +850,9 @@
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  border: 1px solid var(--border);
-  background: var(--glass);
-  box-shadow: inset 0 1px 0 var(--border);
+  border: 1px solid var(--signal-line);
+  background: var(--signal-soft);
+  color: var(--signal-ink);
   margin-bottom: 28px;
 }
 .capability h3 {
@@ -906,12 +944,13 @@
   gap: 14px;
   margin-top: 24px;
   padding: 16px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--signal-line);
   border-radius: 14px;
-  background: var(--glass);
+  background: var(--signal-soft);
 }
 .about-availability > svg {
   flex-shrink: 0;
+  color: var(--signal-ink);
 }
 .about-availability strong {
   font-size: 14px;
@@ -1049,12 +1088,19 @@
     border-color 180ms;
 }
 .contact-option:hover {
-  background: var(--glass-hover);
-  border-color: var(--border-strong);
+  background: var(--signal-soft);
+  border-color: var(--signal-line);
+}
+.contact-option svg {
+  transition: color 180ms;
+}
+.contact-option:hover svg,
+.contact-direct a svg {
+  color: var(--signal-ink);
 }
 .contact-option-number {
   display: block;
-  color: var(--muted-foreground);
+  color: var(--signal-ink);
   font-family: var(--font-mono);
   font-size: 10px;
   margin-bottom: 27px;

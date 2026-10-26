@@ -11,6 +11,7 @@ import {
   MapPin,
   Workflow,
 } from "lucide-react";
+import { HeroBrandMark } from "@/components/hero-brand-mark";
 import { ProjectList } from "@/components/project-list";
 import { PageMotion } from "@/components/page-motion";
 import {
@@ -120,7 +121,7 @@ export default function Page() {
               <span className="scene-coordinate coordinate-top" dir="ltr">
                 IDEA → BUILD → REFINE
               </span>
-              <div className="hero-brand-mark" />
+              <HeroBrandMark />
               <span className="scene-tag tag-code">
                 <Braces size={17} />
                 <span dir="ltr">Software</span>
