@@ -221,8 +221,7 @@
   filter: none;
 }
 .tiny-mark,
-.profile-monogram,
-.hero-brand-mark {
+.profile-monogram {
   background: var(--foreground);
   mask: url("/brand/ahmed-icon.svg") center / contain no-repeat;
 }
@@ -495,22 +494,12 @@
   border-radius: 50%;
   background: radial-gradient(closest-side, var(--signal-glow), transparent);
 }
-.hero-brand {
-  position: relative;
-  transform: rotate(-8deg);
-}
+/* A still frame baked from the Paper Shaders LiquidMetal look; no runtime shader. */
 .hero-brand-mark {
   width: 105px;
   height: 362px;
-}
-/* The canvas is larger than the mark so the metal edges are not clipped. */
-.hero-brand-shader {
-  position: absolute;
-  inset: -11% -76%;
-}
-.hero-brand[data-shader="ready"] .hero-brand-mark {
-  opacity: 0;
-  transition: opacity 0.5s 0.35s;
+  background: url("/brand/ahmed-icon-metal.webp") center / contain no-repeat;
+  transform: rotate(-8deg);
 }
 .brand-orbit {
   position: absolute;
