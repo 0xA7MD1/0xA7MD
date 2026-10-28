@@ -1,0 +1,112 @@
+{
+  "works": [
+    {
+      "slug": "vireo",
+      "title": "Vireo",
+      "category": "مشروبات ومطاعم",
+      "featured": true,
+      "images": [
+        "/graphic/vireo-1.webp",
+        "/graphic/vireo-2.webp",
+        "/graphic/vireo-3.webp"
+      ]
+    },
+    {
+      "slug": "kinza",
+      "title": "كينزا",
+      "category": "مشروبات ومطاعم",
+      "featured": true,
+      "images": ["/graphic/kinza-1.webp", "/graphic/kinza-2.webp"]
+    },
+    {
+      "slug": "app-launch",
+      "title": "حملة إطلاق تطبيق",
+      "category": "تطبيقات",
+      "featured": true,
+      "images": [
+        "/graphic/app-launch-1.webp",
+        "/graphic/app-launch-2.webp",
+        "/graphic/app-launch-3.webp",
+        "/graphic/app-launch-4.webp",
+        "/graphic/app-launch-5.webp"
+      ]
+    },
+    {
+      "slug": "albaik",
+      "title": "البيك",
+      "category": "مشروبات ومطاعم",
+      "featured": true,
+      "images": ["/graphic/albaik-1.webp"]
+    },
+    {
+      "slug": "shawarma",
+      "title": "شاورما صاروخ",
+      "category": "مشروبات ومطاعم",
+      "featured": true,
+      "images": ["/graphic/shawarma-1.webp"]
+    },
+    {
+      "slug": "azm-ramadan",
+      "title": "باقة ليالي عزم الرمضانية",
+      "category": "منتجات ومتاجر",
+      "featured": true,
+      "images": ["/graphic/azm-ramadan-1.webp"]
+    },
+    {
+      "slug": "instant-coffee",
+      "title": "اشربها هتفهم",
+      "category": "مشروبات ومطاعم",
+      "featured": false,
+      "images": ["/graphic/instant-coffee-1.webp"]
+    },
+    {
+      "slug": "baskin-robbins",
+      "title": "باسكن روبنز",
+      "category": "مشروبات ومطاعم",
+      "featured": false,
+      "images": ["/graphic/baskin-robbins-1.webp"]
+    },
+    {
+      "slug": "iced-matcha",
+      "title": "ماتشا باردة",
+      "category": "مشروبات ومطاعم",
+      "featured": false,
+      "images": ["/graphic/iced-matcha-1.webp"]
+    },
+    {
+      "slug": "magnetic-holder",
+      "title": "حامل الجوال المغناطيسي",
+      "category": "منتجات ومتاجر",
+      "featured": false,
+      "images": [
+        "/graphic/magnetic-holder-1.webp",
+        "/graphic/magnetic-holder-2.webp"
+      ]
+    },
+    {
+      "slug": "gaming-sleeves",
+      "title": "أكمام أصابع للألعاب",
+      "category": "منتجات ومتاجر",
+      "featured": false,
+      "images": ["/graphic/gaming-sleeves-1.webp"]
+    },
+    {
+      "slug": "habits-carousel",
+      "title": "كاروسيل: تبدأ عادات جديدة",
+      "category": "تطبيقات",
+      "featured": false,
+      "images": [
+        "/graphic/habits-carousel-1.webp",
+        "/graphic/habits-carousel-2.webp",
+        "/graphic/habits-carousel-3.webp"
+      ]
+    },
+    {
+      "slug": "thaghra",
+      "title": "ثغرة",
+      "category": "محتوى توعوي",
+      "featured": false,
+      "images": ["/graphic/thaghra-1.webp", "/graphic/thaghra-2.webp"]
+    }
+  ]
+}
