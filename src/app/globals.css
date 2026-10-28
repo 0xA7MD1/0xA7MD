@@ -1705,12 +1705,6 @@ body:has(.image-dialog[open]) {
 }
 
 /* Graphic design works at /graphic. Data lives in src/data/graphic-works.json. */
-.graphic-header-actions {
-  margin-inline-start: auto;
-}
-.graphic-hero-inner {
-  padding-block: 70px 64px;
-}
 .graphic-featured {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1826,38 +1820,109 @@ body:has(.image-dialog[open]) {
 .graphic-dialog-stage img {
   object-fit: contain;
 }
-.graphic-contact {
+.graphic-stats {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  padding-block: 72px;
-  text-align: center;
+  gap: 40px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hairline);
 }
-.graphic-contact h2 {
-  font-size: clamp(28px, 3.1vw, 42px);
-  font-weight: 700;
-  line-height: 1.5;
+.graphic-stats div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
 }
-.graphic-mail {
+.graphic-stats dd {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  line-height: 1;
+}
+.graphic-stats dt {
   color: var(--muted-foreground);
-  font-size: 14px;
+  font-size: 12px;
+}
+.graphic-fan {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 460px;
+  min-width: 0;
+}
+.graphic-fan::before {
+  content: "";
+  position: absolute;
+  inset: 10% 12%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--signal-glow), transparent);
+}
+.graphic-fan-card {
+  position: absolute;
+  width: 230px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: 18px;
+  background: var(--stage);
+  box-shadow: var(--card-shadow);
+}
+.graphic-fan-card img {
+  object-fit: cover;
+}
+.graphic-fan-card[data-index="0"] {
+  z-index: 2;
+  transform: rotate(-3deg);
+}
+.graphic-fan-card[data-index="1"] {
+  transform: translateX(-42%) rotate(-11deg) scale(0.88);
+}
+.graphic-fan-card[data-index="2"] {
+  transform: translateX(42%) rotate(9deg) scale(0.88);
+}
+.graphic-fan .coordinate-top {
+  top: 0;
+}
+.graphic-hero-categories {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.graphic-footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 @media (max-width: 1000px) {
+  .graphic-fan {
+    height: 380px;
+  }
+  .graphic-fan-card {
+    width: 190px;
+  }
   .graphic-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (max-width: 760px) {
+  .graphic-fan {
+    height: 300px;
+  }
+  .graphic-fan-card {
+    width: 150px;
+  }
+  .graphic-stats {
+    gap: 28px;
+    margin-top: 32px;
+  }
+  .graphic-stats dd {
+    font-size: 24px;
+  }
   .graphic-featured {
     grid-template-columns: 1fr;
   }
   .graphic-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px 12px;
-  }
-  .graphic-hero-inner {
-    padding-block: 40px;
   }
   .graphic-caption {
     flex-direction: column;
