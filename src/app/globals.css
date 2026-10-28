@@ -1703,3 +1703,169 @@ body:has(.image-dialog[open]) {
     font-size: 11px;
   }
 }
+
+/* Graphic design works at /graphic. Data lives in src/data/graphic-works.json. */
+.graphic-header-actions {
+  margin-inline-start: auto;
+}
+.graphic-hero-inner {
+  padding-block: 70px 64px;
+}
+.graphic-featured {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 24px;
+}
+.graphic-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px 16px;
+}
+.graphic-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.graphic-card > p {
+  color: var(--muted-foreground);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.graphic-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  background: var(--stage);
+  box-shadow: var(--card-shadow);
+  cursor: zoom-in;
+}
+.graphic-card[data-large] .graphic-frame {
+  border-radius: 24px;
+}
+.graphic-frame img {
+  object-fit: contain;
+  transition: transform 400ms;
+}
+.graphic-frame:hover img {
+  transform: scale(1.025);
+}
+.graphic-frame:focus-visible {
+  outline: 2px solid var(--signal-ink);
+  outline-offset: 3px;
+}
+.graphic-count {
+  position: absolute;
+  inset-block-end: 12px;
+  inset-inline-start: 12px;
+  padding: 5px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--header-bg);
+  color: var(--foreground);
+  font-size: 12px;
+}
+.graphic-caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.graphic-caption h3 {
+  font-size: 15px;
+  font-weight: 500;
+}
+.graphic-card[data-large] .graphic-caption h3 {
+  font-size: 19px;
+}
+.graphic-caption span {
+  flex-shrink: 0;
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+.graphic-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.graphic-filters button {
+  min-height: 38px;
+  padding: 0 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--glass);
+  color: var(--muted-foreground);
+  font-size: 13px;
+  transition:
+    background 150ms,
+    color 150ms;
+}
+.graphic-filters button:hover {
+  background: var(--glass-hover);
+  color: var(--foreground);
+}
+.graphic-filters button[aria-pressed="true"] {
+  border-color: var(--signal-line);
+  background: var(--signal-soft);
+  color: var(--signal-ink);
+}
+.graphic-dialog-index {
+  min-width: 44px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.graphic-dialog-stage {
+  position: relative;
+  height: calc(100dvh - 107px);
+}
+.graphic-dialog-stage img {
+  object-fit: contain;
+}
+.graphic-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding-block: 72px;
+  text-align: center;
+}
+.graphic-contact h2 {
+  font-size: clamp(28px, 3.1vw, 42px);
+  font-weight: 700;
+  line-height: 1.5;
+}
+.graphic-mail {
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+@media (max-width: 1000px) {
+  .graphic-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 760px) {
+  .graphic-featured {
+    grid-template-columns: 1fr;
+  }
+  .graphic-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 12px;
+  }
+  .graphic-hero-inner {
+    padding-block: 40px;
+  }
+  .graphic-caption {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .graphic-frame:hover img {
+    transform: none;
+  }
+}
